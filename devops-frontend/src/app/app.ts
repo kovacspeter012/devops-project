@@ -1,12 +1,47 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Component, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { WeatherForecast } from '../model/weather-forecast.model';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [CommonModule, FormsModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('devops-frontend');
+  private http = inject(HttpClient);
+
+  availableCities: string[] = ['London', 'New York', 'Tokyo', 'Győr', 'Sydney'];
+  
+  searchCity: string = this.availableCities[0]; 
+  
+  weatherData: WeatherForecast | null = null;
+  errorMessage: string = '';
+
+  private apiUrl = 'https://localhost:5199/api/weather'; 
+
+  getWeather() {
+    if (!this.searchCity) {
+      return;
+    }
+
+    this.errorMessage = '';
+    this.weatherData = null;
+
+    this.http.get<WeatherForecast>(`${this.apiUrl}/${this.searchCity}`).subscribe({
+      next: (data) => {
+        this.weatherData = data;
+      },
+      error: (err) => {
+        if (err.status === 404) {
+          this.errorMessage = `No weather data found for '${this.searchCity}'.`;
+        } else {
+          this.errorMessage = 'An error occurred while fetching the weather data.';
+        }
+        console.error(err);
+      }
+    });
+  }
 }

@@ -1,0 +1,37 @@
+[
+	{
+		"TemperatureC": 15,
+		"Summary": "Cloudy",
+		"City": "London",
+		"Humidity": 72,
+		"Wind": 12.5
+	},
+	{
+		"TemperatureC": 22,
+		"Summary": "Sunny",
+		"City": "New York",
+		"Humidity": 45,
+		"Wind": 8.2
+	},
+	{
+		"TemperatureC": 28,
+		"Summary": "Rainy",
+		"City": "Tokyo",
+		"Humidity": 70,
+		"Wind": 20.0
+	},
+	{
+		"TemperatureC": -2,
+		"Summary": "Snowy",
+		"City": "Moscow",
+		"Humidity": 90,
+		"Wind": 5.5
+	},
+	{
+		"TemperatureC": 35,
+		"Summary": "Hot",
+		"City": "Sydney",
+		"Humidity": 30,
+		"Wind": 15.3
+	}
+]
