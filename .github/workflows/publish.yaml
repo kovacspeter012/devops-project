@@ -34,8 +34,8 @@ jobs:
         docker push ghcr.io/kovacspeter012/k8s-project-frontend-kp:$IMAGE_TAG
         docker push ghcr.io/kovacspeter012/k8s-project-backend-kp:$IMAGE_TAG
 
-        sed -i 's|image: ghcr.io/kovacspeter/k8s-project-frontend-kp:.*|image: ghcr.io/kovacspeter/k8s-project-frontend-kp:'"$IMAGE_TAG"'|' deployment.yaml
-        sed -i 's|image: ghcr.io/kovacspeter/k8s-project-backend-kp:.*|image: ghcr.io/kovacspeter/k8s-project-backend-kp:'"$IMAGE_TAG"'|' deployment.yaml
+        sed -i 's|image: ghcr.io/kovacspeter012/k8s-project-frontend-kp:.*|image: ghcr.io/kovacspeter012/k8s-project-frontend-kp:'"$IMAGE_TAG"'|' deployment.yaml
+        sed -i 's|image: ghcr.io/kovacspeter012/k8s-project-backend-kp:.*|image: ghcr.io/kovacspeter012/k8s-project-backend-kp:'"$IMAGE_TAG"'|' deployment.yaml
 
         git config --global user.name "kovacspeter012"
         git config --global user.email "kovacspeter@students.jedlik.eu"
