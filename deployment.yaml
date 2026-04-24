@@ -1,0 +1,132 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-project-kp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devops-project-kp
+
+  template:
+    metadata:
+      labels:
+        app: devops-project-kp
+
+    spec:
+      containers:
+        - name: devops-project-kp-container
+          image: ghcr.io/kovacspeter012/devops-project-kp:1
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: ghcr-auth-secret
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-project-kp-backend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devops-project-kp-backend
+  template:
+    metadata:
+      labels:
+        app: devops-project-kp-backend
+    spec:
+      containers:
+        - name: devops-project-kp-backend-container
+          image: ghcr.io/kovacspeter012/devops-project-kp:1
+          ports:
+            - containerPort: 8080
+      
+      imagePullSecrets:
+        - name: ghcr-auth-secret
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: devops-project-kp-frontend-clusterip
+spec:
+  type: ClusterIP
+  selector:
+    app: devops-project-kp
+  ports: 
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: devops-project-kp-backend-clusterip
+spec:
+  type: ClusterIP
+  selector:
+    app: devops-project-kp-backend
+  ports: 
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: devops-project-kp-certificate
+spec:
+  secretName: devops-project-kp-certificate
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - devops-project-kp-frontend.jcloud.jedlik.cloud
+    - devops-project-kp-backend.jcloud.jedlik.cloud
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gymtracer-frontend-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+spec:
+  ingressClassName: nginx
+
+  tls:
+    - hosts:
+      - devops-project-kp-frontend.jcloud.jedlik.cloud
+      secretName: devops-project-kp-certificate
+
+  rules:
+    - host: devops-project-kp-frontend.jcloud.jedlik.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: devops-project-kp-frontend-clusterip
+                port:
+                  number: 80  
+    
+    - host: devops-project-kp-backend.jcloud.jedlik.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: devops-project-kp-backend-clusterip
+                port:
+                  number: 80

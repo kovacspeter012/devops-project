@@ -13,33 +13,28 @@ import { HttpClient } from '@angular/common/http';
 export class App {
   private http = inject(HttpClient);
 
-  availableCities: string[] = ['London', 'New York', 'Tokyo', 'Győr', 'Sydney'];
+  availableCities: string[] = ['London', 'New York', 'Tokyo', 'Moscow', 'Sydney'];
   
   searchCity: string = this.availableCities[0]; 
   
   weatherData: WeatherForecast | null = null;
   errorMessage: string = '';
 
-  private apiUrl = 'https://localhost:5199/api/weather'; 
+  private apiUrl = 'http://localhost:5199/WeatherForecast'; 
 
   getWeather() {
     if (!this.searchCity) {
       return;
     }
-
+    
     this.errorMessage = '';
     this.weatherData = null;
 
     this.http.get<WeatherForecast>(`${this.apiUrl}/${this.searchCity}`).subscribe({
-      next: (data) => {
+      next: (data) => {     
         this.weatherData = data;
       },
       error: (err) => {
-        if (err.status === 404) {
-          this.errorMessage = `No weather data found for '${this.searchCity}'.`;
-        } else {
-          this.errorMessage = 'An error occurred while fetching the weather data.';
-        }
         console.error(err);
       }
     });
