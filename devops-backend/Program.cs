@@ -24,7 +24,7 @@ namespace devops_backend
                                       policy.AllowAnyHeader()
                                             .AllowAnyMethod();
 
-                                      policy.WithOrigins("https://weatherforecast.jcloud.jedlik.cloud");
+                                      policy.WithOrigins("https://devops-project-kp-frontend.jcloud.jedlik.cloud");
 
 #if DEBUG
                                       policy.WithOrigins("http://localhost:4200");

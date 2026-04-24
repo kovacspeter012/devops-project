@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: devops-project-kp-container
-          image: ghcr.io/kovacspeter012/devops-project-kp:1
+          image: ghcr.io/kovacspeter012/k8s-project-frontend-kp:1
           ports:
             - containerPort: 80
       imagePullSecrets:
@@ -40,7 +40,7 @@ spec:
     spec:
       containers:
         - name: devops-project-kp-backend-container
-          image: ghcr.io/kovacspeter012/devops-project-kp:1
+          image: ghcr.io/kovacspeter012/k8s-project-backend-kp:1
           ports:
             - containerPort: 8080
       
@@ -106,6 +106,7 @@ spec:
   tls:
     - hosts:
       - devops-project-kp-frontend.jcloud.jedlik.cloud
+      - devops-project-kp-backend.jcloud.jedlik.cloud
       secretName: devops-project-kp-certificate
 
   rules:

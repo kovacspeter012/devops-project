@@ -20,7 +20,7 @@ export class App {
   weatherData: WeatherForecast | null = null;
   errorMessage: string = '';
 
-  private apiUrl = 'http://localhost:5199/WeatherForecast'; 
+  private apiUrl = 'https://devops-project-kp-backend.jcloud.jedlik.cloud/WeatherForecast'; 
 
   getWeather() {
     if (!this.searchCity) {
