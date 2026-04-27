@@ -33,5 +33,12 @@
 		"City": "Sydney",
 		"Humidity": 30,
 		"Wind": 15.3
+	},
+	{
+		"TemperatureC": 20,
+		"Summary": "Cloudy",
+		"City": "Budapest",
+		"Humidity": 24,
+		"Wind": 12.5
 	}
 ]

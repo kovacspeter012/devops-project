@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class App {
   private http = inject(HttpClient);
 
-  availableCities: string[] = ['London', 'New York', 'Tokyo', 'Moscow', 'Sydney'];
+  availableCities: string[] = ['London', 'New York', 'Tokyo', 'Moscow', 'Sydney', 'Budapest'];
   
   searchCity: string = this.availableCities[0]; 
   
