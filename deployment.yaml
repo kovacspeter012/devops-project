@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: devops-project-kp-container
-          image: ghcr.io/kovacspeter012/k8s-project-frontend-kp:1777018783
+          image: ghcr.io/kovacspeter012/k8s-project-frontend-kp:1777271337
           ports:
             - containerPort: 80
       imagePullSecrets:
@@ -40,7 +40,7 @@ spec:
     spec:
       containers:
         - name: devops-project-kp-backend-container
-          image: ghcr.io/kovacspeter012/k8s-project-backend-kp:1777018783
+          image: ghcr.io/kovacspeter012/k8s-project-backend-kp:1777271337
           ports:
             - containerPort: 8080
       
